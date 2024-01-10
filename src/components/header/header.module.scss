@@ -1,0 +1,8 @@
+.header {
+  &__logo {
+    margin: 0 auto;
+    height: 200px;
+    aspect-ratio: 1;
+    background: url('../../assets/header-logo.png') center/100% no-repeat;
+  }
+}
