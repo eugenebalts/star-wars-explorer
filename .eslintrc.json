@@ -19,6 +19,14 @@
                 "tsx": "never"
             }
         ],
+        "react/jsx-filename-extension": [ 
+            "error",
+            {
+                "extensions": [
+                    ".js", ".jsx"
+                ]   
+                }
+            ],
         "quotes": ["warn", "single"],
         "no-console": "off",
         "object-shorthand": "warn",
@@ -29,6 +37,7 @@
         "eqeqeq": "warn",
         "no-unneeded-ternary": "warn",
         "spaced-comment": "warn",
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        "linebreak-style": ["error", "windows"]
     }
 }
