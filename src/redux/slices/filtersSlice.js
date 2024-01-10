@@ -9,8 +9,7 @@ const initialState = {
 const filtersSlice = createSlice({
   name: 'filters',
   initialState,
-  reducers: {
-  },
+  reducers: {},
 });
 
 export const filtersActions = filtersSlice.actions;
