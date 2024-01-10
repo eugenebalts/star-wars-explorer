@@ -1,5 +1,24 @@
+import Container from '../../components/container/container';
+import DefaultLayout from '../../layouts/default/default';
+import Filters from '../../components/filters/filters';
 import style from './main-page.module.scss';
+import Catalog from '../../components/catalog/catalog';
 
 export default function MainPage() {
-  return <div className={style['main-page']}>Main page</div>;
+  return (
+    <DefaultLayout>
+      <Container>
+        <main>
+          <div className={style['main-page']}>
+            <section className={`${style.section} ${style.section_filters}`}>
+              <Filters />
+            </section>
+            <section className={`${style.section} ${style.section_catalog}`}>
+              <Catalog />
+            </section>
+          </div>
+        </main>
+      </Container>
+    </DefaultLayout>
+  );
 }
