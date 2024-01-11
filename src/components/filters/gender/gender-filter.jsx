@@ -12,11 +12,11 @@ export default function GenderFilter() {
 
   return (
     <RadioGroup
-      col
       aria-labelledby="demo-form-control-label-placement"
       name="position"
       defaultValue="top"
-      className={style['gender-filter']}>
+      className={style['gender-filter']}
+    >
       <FormControlLabel
         value="male"
         control={<Radio className={style['gender-filter__input']} />}

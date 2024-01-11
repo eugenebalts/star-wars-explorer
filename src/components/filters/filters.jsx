@@ -7,6 +7,7 @@ import FilterActions from './actions/actions';
 import FilmsFilter from './films/films-filter';
 import NameFilter from './name/name-filter';
 import GenderFilter from './gender/gender-filter';
+import MassFilter from './mass/mass-filter';
 
 export default function Filters() {
   return (
@@ -14,7 +15,8 @@ export default function Filters() {
       <AccordionSummary
         expandIcon={<ArrowDropDownIcon className={style['filters__dropdown-icon']} />}
         aria-controls="panel1-content"
-        id="panel1-header">
+        id="panel1-header"
+      >
         <Typography className={style.filters__dropdown}>Filters</Typography>
       </AccordionSummary>
       <AccordionDetails>
@@ -27,6 +29,9 @@ export default function Filters() {
           </div>
           <div className={style.filters__item}>
             <GenderFilter />
+          </div>
+          <div className={style.filters__item}>
+            <MassFilter />
           </div>
         </div>
         <AccordionActions>
