@@ -1,7 +1,13 @@
 .filters {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 10px;
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: inset 0 0 30px rgb(37, 37, 37) !important;
+
+  &__dropdown-icon {
+    color: #ffffff !important;
+  }
+
+  &__select {
+    font-family: unset !important;
+  }
 }
