@@ -1,13 +1,13 @@
 import { TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import style from './mass-filter.module.scss';
 import filtersStyle from '../filters.module.scss';
 
 export default function MassFilter() {
-  const [MIN_MASS, SET_MIN_MASS] = useState(0);
-  const [MAX_MASS, SET_MAX_MASS] = useState(100);
   const [minMass, setMinMass] = useState(0);
   const [maxMass, setMaxMass] = useState(100);
+  const { MIN_MASS, MAX_MASS } = useSelector((state) => state.filters);
 
   const handleChangeMin = (event) => setMinMass(event.target.value);
   const handleChangeMax = (event) => setMaxMass(event.target.value);
@@ -45,9 +45,9 @@ export default function MassFilter() {
   };
 
   useEffect(() => {
-    SET_MIN_MASS(0);
-    SET_MAX_MASS(100);
-  });
+    setMinMass(MIN_MASS);
+    setMaxMass(MAX_MASS);
+  }, [MIN_MASS, MAX_MASS]);
 
   return (
     <div className={`${style['mass-filter']} ${filtersStyle.filters__item__wrapper}`}>

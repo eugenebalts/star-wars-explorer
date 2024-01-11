@@ -3,6 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   search: '',
   mass: '',
+  MIN_MASS: 0,
+  MAX_MASS: 100,
   gender: '',
   films: [],
   page: 1,
@@ -29,6 +31,9 @@ const filtersSlice = createSlice({
     },
     resetFilters(state) {
       state.search = '';
+      state.mass = '';
+      state.MIN_MASS = 0;
+      state.MAX_MASS = 100;
       state.mass = '';
       state.gender = '';
       state.films = [];
