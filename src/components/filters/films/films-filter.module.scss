@@ -1,0 +1,14 @@
+.films-filter {
+  & *:not(svg) {
+    color: white;
+    font-family: unset !important;
+    font-size: 10px !important;
+  }
+
+  &__select {
+    &-item {
+      font-family: unset !important;
+      font-size: 10px !important;
+    }
+  }
+}
