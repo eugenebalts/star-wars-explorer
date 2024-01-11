@@ -1,6 +1,7 @@
 import { TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import style from './mass-filter.module.scss';
+import filtersStyle from '../filters.module.scss';
 
 export default function MassFilter() {
   const [MIN_MASS, SET_MIN_MASS] = useState(0);
@@ -49,29 +50,32 @@ export default function MassFilter() {
   });
 
   return (
-    <div className={style['mass-filter']}>
-      <TextField
-        id="outlined-number"
-        label="Min, kg"
-        type="number"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        onChange={handleChangeMin}
-        onBlur={handleBlurMin}
-        value={minMass}
-      />
-      <TextField
-        id="outlined-number"
-        label="Max, kg"
-        type="number"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        onChange={handleChangeMax}
-        onBlur={handleBlurMax}
-        value={maxMass}
-      />
+    <div className={`${style['mass-filter']} ${filtersStyle.filters__item__wrapper}`}>
+      <h3>By mass</h3>
+      <div className={style['mass-filter__inputs-list']}>
+        <TextField
+          id="outlined-number"
+          label="Min, kg"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={handleChangeMin}
+          onBlur={handleBlurMin}
+          value={minMass}
+        />
+        <TextField
+          id="outlined-number"
+          label="Max, kg"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={handleChangeMax}
+          onBlur={handleBlurMax}
+          value={maxMass}
+        />
+      </div>
     </div>
   );
 }

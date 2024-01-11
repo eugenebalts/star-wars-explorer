@@ -1,7 +1,5 @@
 .name-filter {
-  font-family: unset !important;
-
-  & > * {
+  & * {
     font-family: unset !important;
   }
 }

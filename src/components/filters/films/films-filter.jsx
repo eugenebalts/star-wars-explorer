@@ -2,6 +2,7 @@ import { FormControl, MenuItem, OutlinedInput, Select } from '@mui/material';
 import { useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import style from './films-filter.module.scss';
+import filtersStyle from '../filters.module.scss';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 0;
@@ -45,36 +46,41 @@ export default function FilmsFilter() {
   };
 
   return (
-    <FormControl sx={{ m: 1, width: 250, mt: 0 }} className={style['films-filter']}>
-      <Select
-        className={style['films-filter__select']}
-        multiple
-        displayEmpty
-        value={films}
-        onChange={handleChange}
-        input={<OutlinedInput />}
-        renderValue={(selected) => {
-          if (selected.length === 0) {
-            return <em>Select films</em>;
-          }
+    <div className={`${style['films-filter']} ${filtersStyle.filters__item__wrapper}`}>
+      <h3>By movies</h3>
+      <FormControl sx={{ m: 1, width: 250, mt: 0 }}>
+        <Select
+          className={style['films-filter__select']}
+          multiple
+          displayEmpty
+          value={films}
+          onChange={handleChange}
+          input={<OutlinedInput />}
+          renderValue={(selected) => {
+            if (selected.length === 0) {
+              return <span>Select movies</span>;
+            }
 
-          return selected.join(', ');
-        }}
-        MenuProps={MenuProps}
-        inputProps={{ 'aria-label': 'Without label' }}>
-        <MenuItem disabled value="" className={style['films-filter__select-item']}>
-          <em>Select films</em>
-        </MenuItem>
-        {mockFilmList.map((film) => (
-          <MenuItem
-            className={style['films-filter__select-item']}
-            key={film}
-            value={film}
-            style={getStyles(film, films, theme)}>
-            {film}
+            return selected.join(', ');
+          }}
+          MenuProps={MenuProps}
+          inputProps={{ 'aria-label': 'Without label' }}
+        >
+          <MenuItem disabled value="" className={style['films-filter__select-item']}>
+            <em>Select movies</em>
           </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+          {mockFilmList.map((film) => (
+            <MenuItem
+              className={style['films-filter__select-item']}
+              key={film}
+              value={film}
+              style={getStyles(film, films, theme)}
+            >
+              {film}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </div>
   );
 }

@@ -1,7 +1,9 @@
 .mass-filter {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
+  &__inputs-list {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
 
   & label,
   & input {
