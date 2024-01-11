@@ -5,6 +5,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import style from './filters.module.scss';
 import FilterActions from './actions/actions';
 import FilmsFilter from './films/films-filter';
+import NameFilter from './name/name-filter';
 
 export default function Filters() {
   return (
@@ -19,6 +20,9 @@ export default function Filters() {
         <div className={style.filters__filters}>
           <div>
             <FilmsFilter />
+          </div>
+          <div>
+            <NameFilter />
           </div>
           <div>A</div>
         </div>

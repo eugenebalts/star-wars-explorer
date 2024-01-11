@@ -1,4 +1,6 @@
 .films-filter {
+  margin: 0 !important;
+  height: 50px !important;
   & *:not(svg) {
     color: white;
     font-family: unset !important;

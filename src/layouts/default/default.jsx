@@ -6,7 +6,9 @@ export default function DefaultLayout({ children }) {
   return (
     <div className={style.wrapper}>
       <Header />
-      <div className={style.content}>{children}</div>
+      <main>
+        <div className={style.content}>{children}</div>
+      </main>
     </div>
   );
 }

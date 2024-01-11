@@ -8,16 +8,14 @@ export default function MainPage() {
   return (
     <DefaultLayout>
       <Container>
-        <main>
-          <div className={style['main-page']}>
-            <section className={`${style.section} ${style.section_filters}`}>
-              <Filters />
-            </section>
-            <section className={`${style.section} ${style.section_catalog}`}>
-              <Catalog />
-            </section>
-          </div>
-        </main>
+        <div className={style['main-page']}>
+          <section className={`${style.section} ${style.section_filters}`}>
+            <Filters />
+          </section>
+          <section className={`${style.section} ${style.section_catalog}`}>
+            <Catalog />
+          </section>
+        </div>
       </Container>
     </DefaultLayout>
   );

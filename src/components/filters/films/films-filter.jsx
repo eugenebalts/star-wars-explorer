@@ -4,7 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import style from './films-filter.module.scss';
 
 const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
+const ITEM_PADDING_TOP = 0;
 const MenuProps = {
   PaperProps: {
     style: {
