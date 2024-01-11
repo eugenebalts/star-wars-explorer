@@ -41,8 +41,6 @@ export default function FilmsFilter() {
 
   useEffect(() => {
     dispatch(updateFilms([...selectedFilms]));
-
-    console.log([...selectedFilms]);
   }, [selectedFilms]);
 
   useEffect(() => {
