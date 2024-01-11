@@ -1,9 +1,7 @@
 @import './libs/_normalize.scss';
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Gloock&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&display=swap');
-
-$font-family-gloock: 'Jakarta', serif;
+$font-family-gloock: 'Press Start 2P', serif;
 
 html,
 body {
@@ -14,6 +12,7 @@ body {
   display: flex;
   flex-direction: column;
   font-family: $font-family-gloock;
+  font-size: 14px;
   color: #fff;
   background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
   overflow-x: hidden;
