@@ -5,6 +5,8 @@ const initialState = {
   mass: '',
   MIN_MASS: 0,
   MAX_MASS: 100,
+  minMass: 0,
+  maxMass: 100,
   gender: '',
   films: [],
   page: 1,
@@ -29,11 +31,17 @@ const filtersSlice = createSlice({
     updatePage(state, { payload }) {
       state.page = payload;
     },
+    updateMinMass(state, { payload }) {
+      state.minMass = payload;
+    },
+    updateMaxMass(state, { payload }) {
+      state.maxMass = payload;
+    },
     resetFilters(state) {
       state.search = '';
       state.mass = '';
-      state.MIN_MASS = 0;
-      state.MAX_MASS = 100;
+      state.minMass = state.MIN_MASS;
+      state.maxMass = state.MAX_MASS;
       state.mass = '';
       state.gender = '';
       state.films = [];

@@ -1,9 +1,14 @@
 import Button from '@mui/material/Button';
+import { useDispatch } from 'react-redux';
+import { filtersActions } from '../../../redux/slices/filtersSlice';
 import style from './actions.module.scss';
 
 export default function FilterActions() {
-  const handleButtonClick = async () => {
-    console.log('');
+  const dispatch = useDispatch();
+  const { resetFilters } = filtersActions;
+
+  const handleButtonClick = () => {
+    dispatch(resetFilters());
   };
 
   return (

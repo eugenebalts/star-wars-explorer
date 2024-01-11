@@ -1,16 +1,16 @@
 import { TextField } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import style from './mass-filter.module.scss';
 import filtersStyle from '../filters.module.scss';
+import { filtersActions } from '../../../redux/slices/filtersSlice';
 
 export default function MassFilter() {
-  const [minMass, setMinMass] = useState(0);
-  const [maxMass, setMaxMass] = useState(100);
-  const { MIN_MASS, MAX_MASS } = useSelector((state) => state.filters);
+  const dispatch = useDispatch();
+  const { updateMinMass, updateMaxMass } = filtersActions;
+  const { MIN_MASS, MAX_MASS, minMass, maxMass } = useSelector((state) => state.filters);
 
-  const handleChangeMin = (event) => setMinMass(event.target.value);
-  const handleChangeMax = (event) => setMaxMass(event.target.value);
+  const handleChangeMin = (event) => dispatch(updateMinMass(event.target.value));
+  const handleChangeMax = (event) => dispatch(updateMaxMass(event.target.value));
 
   const handleBlurMin = (event) => {
     const {
@@ -25,7 +25,7 @@ export default function MassFilter() {
       editedValue = MIN_MASS;
     }
 
-    setMinMass(editedValue);
+    dispatch(updateMinMass(editedValue));
   };
 
   const handleBlurMax = (event) => {
@@ -41,13 +41,8 @@ export default function MassFilter() {
       editedValue = MAX_MASS;
     }
 
-    setMaxMass(editedValue);
+    dispatch(updateMaxMass(editedValue));
   };
-
-  useEffect(() => {
-    setMinMass(MIN_MASS);
-    setMaxMass(MAX_MASS);
-  }, [MIN_MASS, MAX_MASS]);
 
   return (
     <div className={`${style['mass-filter']} ${filtersStyle.filters__item__wrapper}`}>
