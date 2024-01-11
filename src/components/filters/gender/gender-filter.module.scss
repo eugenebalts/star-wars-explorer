@@ -1,0 +1,9 @@
+.gender-filter {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  & * {
+    font-family: unset !important;
+  }
+}

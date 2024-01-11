@@ -6,6 +6,7 @@ import style from './filters.module.scss';
 import FilterActions from './actions/actions';
 import FilmsFilter from './films/films-filter';
 import NameFilter from './name/name-filter';
+import GenderFilter from './gender/gender-filter';
 
 export default function Filters() {
   return (
@@ -14,17 +15,19 @@ export default function Filters() {
         expandIcon={<ArrowDropDownIcon className={style['filters__dropdown-icon']} />}
         aria-controls="panel1-content"
         id="panel1-header">
-        <Typography className={style.filters__select}>Filters</Typography>
+        <Typography className={style.filters__dropdown}>Filters</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <div className={style.filters__filters}>
-          <div>
+        <div className={style.filters__list}>
+          <div className={style.filters__item}>
             <FilmsFilter />
           </div>
-          <div>
+          <div className={style.filters__item}>
             <NameFilter />
           </div>
-          <div>A</div>
+          <div className={style.filters__item}>
+            <GenderFilter />
+          </div>
         </div>
         <AccordionActions>
           <FilterActions />
