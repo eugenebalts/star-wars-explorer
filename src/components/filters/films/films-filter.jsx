@@ -68,8 +68,7 @@ export default function FilmsFilter() {
             return selected.join(', ');
           }}
           MenuProps={MenuProps}
-          inputProps={{ 'aria-label': 'Without label' }}
-        >
+          inputProps={{ 'aria-label': 'Without label' }}>
           <MenuItem disabled value="" className={style['films-filter__select-item']}>
             <em>Select movies</em>
           </MenuItem>
@@ -78,8 +77,7 @@ export default function FilmsFilter() {
               className={style['films-filter__select-item']}
               key={film.title}
               value={film.title}
-              style={getStyles(film.title, selectedFilms, theme)}
-            >
+              style={getStyles(film.title, selectedFilms, theme)}>
               {film.title.length < 20 ? film.title : `${film.title.slice(0, 15)}...`}
             </MenuItem>
           ))}

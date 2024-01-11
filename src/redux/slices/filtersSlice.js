@@ -19,7 +19,7 @@ const filtersSlice = createSlice({
       state.mass = payload;
     },
     updateGender(state, { payload }) {
-      state.search = payload;
+      state.gender = payload;
     },
     updateFilms(state, { payload }) {
       state.films = [...payload];
