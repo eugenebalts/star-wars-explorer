@@ -11,11 +11,11 @@ export default function Catalog() {
   useEffect(() => {
     dispatch(
       fetchCards({
+        page,
         search,
         mass,
         gender,
         films,
-        page,
       })
     );
   }, [page, search, mass, gender, films]);

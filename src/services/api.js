@@ -1,9 +1,11 @@
+import createSearchParams from '../utils/createSearchParams';
+
 class Api {
   BASE_URL = 'https://swapi.dev/api/';
 
   async GET_REQUEST(path, query = {}) {
     const endpoint = new URL(`${path}`, this.BASE_URL);
-    const queryParams = new URLSearchParams(query);
+    const queryParams = createSearchParams(query);
     endpoint.search = queryParams;
 
     try {
