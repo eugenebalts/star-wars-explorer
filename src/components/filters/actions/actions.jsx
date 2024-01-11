@@ -2,8 +2,8 @@ import Button from '@mui/material/Button';
 import style from './actions.module.scss';
 
 export default function FilterActions() {
-  const handleButtonClick = () => {
-    console.log('Reset filters');
+  const handleButtonClick = async () => {
+    console.log('');
   };
 
   return (

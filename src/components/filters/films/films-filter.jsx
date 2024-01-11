@@ -1,8 +1,11 @@
 import { FormControl, MenuItem, OutlinedInput, Select } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
+import { useDispatch, useSelector } from 'react-redux';
 import style from './films-filter.module.scss';
 import filtersStyle from '../filters.module.scss';
+import { filtersActions } from '../../../redux/slices/filtersSlice';
+import { fetchFilms } from '../../../redux/slices/filmsSlice';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 0;
@@ -15,19 +18,6 @@ const MenuProps = {
   },
 };
 
-const mockFilmList = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
-
 function getStyles(film, films, theme) {
   return {
     fontWeight: films.indexOf(film) === -1 ? theme.typography.fontWeightRegular : theme.typography.fontWeightMedium,
@@ -35,15 +25,29 @@ function getStyles(film, films, theme) {
 }
 
 export default function FilmsFilter() {
+  const dispatch = useDispatch();
+  const { updateFilms } = filtersActions;
   const theme = useTheme();
-  const [films, setFilms] = useState([]);
+  const [selectedFilms, setSelectedFilms] = useState([]);
+  const { films } = useSelector((state) => state.films);
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setFilms(typeof value === 'string' ? value.split(',') : value);
+
+    setSelectedFilms(typeof value === 'string' ? value.split(',') : value);
   };
+
+  useEffect(() => {
+    dispatch(updateFilms([...selectedFilms]));
+
+    console.log([...selectedFilms]);
+  }, [selectedFilms]);
+
+  useEffect(() => {
+    dispatch(fetchFilms());
+  }, []);
 
   return (
     <div className={`${style['films-filter']} ${filtersStyle.filters__item__wrapper}`}>
@@ -53,7 +57,7 @@ export default function FilmsFilter() {
           className={style['films-filter__select']}
           multiple
           displayEmpty
-          value={films}
+          value={selectedFilms}
           onChange={handleChange}
           input={<OutlinedInput />}
           renderValue={(selected) => {
@@ -69,14 +73,14 @@ export default function FilmsFilter() {
           <MenuItem disabled value="" className={style['films-filter__select-item']}>
             <em>Select movies</em>
           </MenuItem>
-          {mockFilmList.map((film) => (
+          {films.map((film) => (
             <MenuItem
               className={style['films-filter__select-item']}
-              key={film}
-              value={film}
-              style={getStyles(film, films, theme)}
+              key={film.title}
+              value={film.title}
+              style={getStyles(film.title, selectedFilms, theme)}
             >
-              {film}
+              {film.title.length < 20 ? film.title : `${film.title.slice(0, 15)}...`}
             </MenuItem>
           ))}
         </Select>
