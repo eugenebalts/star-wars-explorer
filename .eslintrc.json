@@ -46,6 +46,8 @@
       }
     ],
     "no-param-reassign": ["error", { "props": false }],
-    "camelcase": "off"
+    "camelcase": "off",
+    "no-unused-vars": "warn",
+    "no-await-in-loop": "warn"
   }
 }
