@@ -13,11 +13,9 @@
 
   &__list {
     display: flex;
-    flex-direction: column;
     gap: 25px;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
   }
 
   &__item {
