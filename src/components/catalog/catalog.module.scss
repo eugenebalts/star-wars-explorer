@@ -1,0 +1,22 @@
+.catalog {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+  }
+
+  &__pagination {
+    display: flex;
+    justify-content: center;
+
+    & * {
+      font-family: unset !important;
+      color: white !important;
+    }
+  }
+}

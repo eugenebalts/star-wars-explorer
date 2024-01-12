@@ -12,9 +12,18 @@ export const fetchCards = createAsyncThunk('cards/fetchCards', async (query, { r
 });
 
 const initialState = {
-  cards: [],
-  status: null,
-  error: null,
+  default: {
+    cards: [],
+    cardsCount: 0,
+    status: null,
+    error: null,
+    pages: 1,
+  },
+  filtered: {
+    filteredCards: [],
+    filteredCardsCount: 0,
+    pages: 1,
+  },
 };
 
 const cardsSlice = createSlice({
@@ -24,17 +33,19 @@ const cardsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchCards.fulfilled, (state, { payload }) => {
-        state.status = 'resolved';
-        state.error = null;
-        state.cards = [...payload.results];
+        state.default.status = 'resolved';
+        state.default.error = null;
+        state.default.cards = [...payload.results];
+        state.default.cardsCount = payload.count;
+        state.default.pages = Math.ceil(payload.count / 10);
       })
       .addCase(fetchCards.pending, (state) => {
-        state.status = 'pending';
-        state.error = null;
+        state.default.status = 'pending';
+        state.default.error = null;
       })
       .addCase(fetchCards.rejected, (state, { payload }) => {
-        state.status = 'rejected';
-        state.error = payload;
+        state.default.status = 'rejected';
+        state.default.error = payload;
       });
   },
 });
