@@ -15,7 +15,8 @@ export default function Filters() {
       <AccordionSummary
         expandIcon={<ArrowDropDownIcon className={style['filters__dropdown-icon']} />}
         aria-controls="panel1-content"
-        id="panel1-header">
+        id="panel1-header"
+      >
         <Typography className={style.filters__dropdown}>Filters</Typography>
       </AccordionSummary>
       <AccordionDetails>

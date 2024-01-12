@@ -1,6 +1,5 @@
 import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import { filtersActions } from '../../../redux/slices/filtersSlice';
 import style from './actions.module.scss';
 
@@ -19,7 +18,8 @@ export default function FilterActions() {
       variant="contained"
       color="primary"
       onClick={handleButtonClick}
-      className={style.actions__button}>
+      className={style.actions__button}
+    >
       Reset
     </Button>
   );

@@ -4,49 +4,48 @@ import { Pagination } from '@mui/material';
 import { fetchCards } from '../../redux/slices/cardsSlice';
 import style from './catalog.module.scss';
 import { filtersActions } from '../../redux/slices/filtersSlice';
+import CharacterCard from '../card/card';
 
 export default function Catalog() {
   const dispatch = useDispatch();
-  const { cards, cardsCount, pages, status } = useSelector((state) => state.cards.default);
-  // const { filteredCards, filteredCardsCount } = useSelector((state) => state.cards.filtered);
-  const { page, search } = useSelector((state) => state.filters);
+  const { status } = useSelector((state) => state.cards.default);
+  const { filteredCards, filteredCardsCount, pages } = useSelector((state) => state.cards.filtered);
   const [currentPage, setCurrentPage] = useState(1);
   const { updatePage } = filtersActions;
 
   useEffect(() => {
-    dispatch(
-      fetchCards({
-        page,
-        search,
-      })
-    );
-  }, [search, page]);
+    dispatch(fetchCards());
+  }, []);
 
   const handlePaginationChange = (event, value) => {
     setCurrentPage(value);
-    console.log(currentPage);
 
     dispatch(updatePage(value));
   };
 
   return (
     <div className={style.catalog}>
-      <h3>Character cards: {cardsCount}</h3>
+      <h3>Character cards: {filteredCardsCount}</h3>
+      <div className={style.catalog__pagination}>
+        <Pagination count={pages} color="primary" onChange={handlePaginationChange} />
+      </div>
       <div className={style.catalog__content}>
         {status === 'pending' ? (
           <p>loading...</p>
         ) : (
-          cards.map((card) => {
+          filteredCards.slice(Number(`${currentPage - 1}0`), currentPage * 10 - 1).map((card) => {
             return (
-              <div>
-                <p>{card.name}</p>
-              </div>
+              <CharacterCard
+                key={card.name}
+                name={card.name}
+                gender={card.gender}
+                height={card.height}
+                hair={card.hair_color}
+                eye={card.eye_color}
+              />
             );
           })
         )}
-      </div>
-      <div className={style.catalog__pagination}>
-        <Pagination count={pages} color="primary" onChange={handlePaginationChange} />
       </div>
     </div>
   );

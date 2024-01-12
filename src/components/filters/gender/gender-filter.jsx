@@ -1,6 +1,6 @@
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import style from './gender-filter.module.scss';
 import filtersStyle from '../filters.module.scss';
 import { filtersActions } from '../../../redux/slices/filtersSlice';
@@ -8,16 +8,14 @@ import { filtersActions } from '../../../redux/slices/filtersSlice';
 export default function GenderFilter() {
   const dispatch = useDispatch();
   const { updateGender } = filtersActions;
-  const { gender } = useSelector((state) => state.filters);
   const [checkedItem, setCheckedItem] = useState('');
 
   const handleChange = (event) => {
+    console.log(typeof event.target.value);
+
+    setCheckedItem(event.target.value);
     dispatch(updateGender(event.target.value));
   };
-
-  useEffect(() => {
-    setCheckedItem(gender);
-  }, [gender]);
 
   return (
     <div className={`${filtersStyle.filters__item__wrapper} ${style['gender-filter']}`}>
@@ -31,25 +29,25 @@ export default function GenderFilter() {
           checked={checkedItem === ''}
         />
         <FormControlLabel
-          value="Male"
+          value="male"
           control={<Radio className={style['gender-filter__input']} />}
           label="Male"
           onChange={handleChange}
-          checked={checkedItem === 'Male'}
+          checked={checkedItem === 'male'}
         />
         <FormControlLabel
-          value="Female"
+          value="female"
           control={<Radio className={style['gender-filter__input']} />}
           label="Female"
           onChange={handleChange}
-          checked={checkedItem === 'Female'}
+          checked={checkedItem === 'female'}
         />
         <FormControlLabel
-          value="Other"
+          value="other"
           control={<Radio className={style['gender-filter__input']} />}
           label="Other"
           onChange={handleChange}
-          checked={checkedItem === 'Other'}
+          checked={checkedItem === 'other'}
         />
       </RadioGroup>
     </div>
