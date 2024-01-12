@@ -13,10 +13,6 @@ export default function FilterActions() {
     dispatch(resetFilters());
   };
 
-  useEffect(() => {
-    console.log(isChanged);
-  }, [isChanged]);
-
   return (
     <Button
       disabled={!isChanged}
