@@ -8,9 +8,9 @@ const initialState = {
     // films: {
     //   value: [],
     // },
-    // gender: {
-    //   value: '',
-    // },
+    gender: {
+      value: '',
+    },
     // minMass: {
     //   value: 0,
     // },
@@ -68,8 +68,7 @@ const filtersSlice = createSlice({
       state.mass.isChanged = payload.toLowerCase() !== mass.value.toLowerCase();
     },
     updateGender(state, { payload }) {
-      state.gender.value = payload;
-      state.gender.isChanged = payload.toLowerCase() !== gender.value.toLowerCase();
+      state.filteringProps.gender.value = payload;
     },
     updateFilms(state, { payload }) {
       state.films.value = [...payload];

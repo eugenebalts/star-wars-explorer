@@ -46,6 +46,35 @@ const initialState = {
 
 export const filterFunctions = {
   name: (cardValue, current) => cardValue.toLowerCase().startsWith(current.toLowerCase().trim()),
+  gender: (cardValue, current) => {
+    const lowerCardValue = cardValue.toLowerCase();
+    const lowerCurrentValue = current.toLowerCase();
+
+    if (lowerCurrentValue === '') return true;
+    if (lowerCurrentValue === 'male' || lowerCurrentValue === 'female') {
+      return lowerCurrentValue === lowerCardValue;
+    }
+
+    return lowerCardValue !== 'male' && lowerCardValue !== 'female';
+  },
+};
+
+const filterCards = (defaultCards, filteredValues) => {
+  let filteredCards = [...defaultCards];
+
+  Object.keys(filteredValues).forEach((key) => {
+    if (filteredValues[key]) {
+      filteredCards = [
+        ...filteredCards.filter((item) => {
+          if (filterFunctions[key](item[key], filteredValues[key].value)) return true;
+
+          return false;
+        }),
+      ];
+    }
+  });
+
+  return filteredCards;
 };
 
 const cardsSlice = createSlice({
@@ -53,39 +82,16 @@ const cardsSlice = createSlice({
   initialState,
   reducers: {
     filterCardsByGender(state, { payload }) {
-      const defaultCards = state.default.cards;
-      const currentCards = state.filtered.filteredCards;
+      const { cards } = state.default;
+      const filteredValues = payload;
 
-      const filteredGender = defaultCards.filter(
-        (defCard) => !currentCards.some((curCard) => curCard.name === defCard.name)
-      );
-
-      state.filtered.filteredCards.push(...filteredGender);
-
-      state.filtered.filteredCards = state.filtered.filteredCards.filter((card) => {
-        if (payload.value === '') return true;
-
-        if (payload.value === 'male' || payload.value === 'female') {
-          return card.gender === payload.value;
-        }
-
-        return card.gender !== 'male' && card.gender !== 'female';
-      });
+      state.filtered.filteredCards = filterCards(cards, filteredValues);
     },
     filterCardsBySearch(state, { payload }) {
       const { cards } = state.default;
-      const filteredValues = payload; // {name: '...'}
-      console.log(filteredValues);
+      const filteredValues = payload;
 
-      Object.keys(filteredValues).forEach((key) => {
-        if (!filteredValues[key]) return;
-
-        state.filtered.filteredCards = cards.filter((item) => {
-          if (filterFunctions[key](item[key], payload.name.value)) return true;
-
-          return false;
-        });
-      });
+      state.filtered.filteredCards = filterCards(cards, filteredValues);
     },
     updatePages(state) {
       state.filtered.pages = Math.ceil(state.filtered.filteredCards.length / 10);

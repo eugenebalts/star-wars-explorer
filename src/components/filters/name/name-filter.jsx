@@ -26,7 +26,7 @@ export default function NameFilter() {
 
   useEffect(() => {
     dispatch(filterCardsBySearch(filteringProps));
-  }, [filteringProps]);
+  }, [filteringProps.name.value]);
 
   return (
     <div className={`${style['name-filter']} ${filtersStyle.filters__item__wrapper}`}>
