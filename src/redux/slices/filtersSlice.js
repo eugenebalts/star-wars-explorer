@@ -5,9 +5,9 @@ const initialState = {
     name: {
       value: '',
     },
-    // films: {
-    //   value: [],
-    // },
+    films: {
+      value: [],
+    },
     gender: {
       value: '',
     },
@@ -24,18 +24,6 @@ const initialState = {
   },
   MIN_MASS: 0,
   MAX_MASS: 200,
-  minMass: {
-    value: 0,
-    isChanged: false,
-  },
-  maxMass: {
-    value: 200,
-    isChanged: false,
-  },
-  films: {
-    value: [],
-    isChanged: false,
-  },
   page: 1,
   isChanged: false,
 };
@@ -57,8 +45,7 @@ const filtersSlice = createSlice({
       state.filteringProps.gender.value = payload;
     },
     updateFilms(state, { payload }) {
-      state.films.value = [...payload];
-      state.films.isChanged = [...payload].toString() !== films.toString();
+      state.filteringProps.films.value = [...payload];
     },
     updateMinMass(state, { payload }) {
       state.filteringProps.minMass.value = payload;

@@ -59,6 +59,13 @@ export const filterFunctions = {
   },
   minMass: (cardValue, current) => cardValue >= current,
   maxMass: (cardValue, current) => cardValue <= current,
+  films: (cardValue, current) => {
+    return [
+      ...current.map((selectedFilm) => {
+        return cardValue.includes(selectedFilm);
+      }),
+    ].every((selected) => selected);
+  },
 };
 
 const filterCards = (defaultCards, filteredValues) => {
@@ -69,8 +76,12 @@ const filterCards = (defaultCards, filteredValues) => {
       filteredCards = [
         ...filteredCards.filter((item) => {
           if (key === 'minMass' || key === 'maxMass') {
-            if (filterFunctions[key](item.mass, filteredValues[key].value)) return true;
-          } else if (filterFunctions[key](item[key], filteredValues[key].value)) return true;
+            if (filterFunctions[key](item.mass, filteredValues[key].value)) {
+              return true;
+            }
+          } else if (filterFunctions[key](item[key], filteredValues[key].value)) {
+            return true;
+          }
 
           return false;
         }),
@@ -101,7 +112,12 @@ const cardsSlice = createSlice({
       const { cards } = state.default;
       const filteredValues = payload;
 
-      console.log(payload);
+      state.filtered.filteredCards = filterCards(cards, filteredValues);
+    },
+    filterCardsByFilms(state, { payload }) {
+      const { cards } = state.default;
+      const filteredValues = payload;
+
       state.filtered.filteredCards = filterCards(cards, filteredValues);
     },
     updatePages(state) {

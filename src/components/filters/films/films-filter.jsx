@@ -6,6 +6,7 @@ import style from './films-filter.module.scss';
 import filtersStyle from '../filters.module.scss';
 import { filtersActions } from '../../../redux/slices/filtersSlice';
 import { fetchFilms } from '../../../redux/slices/filmsSlice';
+import { cardsActions } from '../../../redux/slices/cardsSlice';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 0;
@@ -27,21 +28,37 @@ function getStyles(film, films, theme) {
 export default function FilmsFilter() {
   const dispatch = useDispatch();
   const { updateFilms } = filtersActions;
+  const { filterCardsByFilms } = cardsActions;
+  const { films } = useSelector((state) => state.films);
+  const { filteringProps } = useSelector((state) => state.filters);
   const theme = useTheme();
   const [selectedFilms, setSelectedFilms] = useState([]);
-  const { films } = useSelector((state) => state.films);
+  const [filmsObjects, setFilmsObjects] = useState([]);
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
 
-    const selected = typeof value === 'string' ? value.split(',') : value;
+    const selectedFilmsNames = typeof value === 'string' ? value.split(',') : value;
 
-    setSelectedFilms(selected);
+    const selectedFilmsUrl = filmsObjects
+      .filter((film) => selectedFilmsNames.some((selectedFilmsName) => selectedFilmsName === film.title))
+      .map((film) => film.url);
 
-    dispatch(updateFilms([...selected]));
+    console.log(selectedFilmsUrl);
+
+    setSelectedFilms(selectedFilmsNames);
+    dispatch(updateFilms([...selectedFilmsUrl]));
   };
+
+  useEffect(() => {
+    dispatch(filterCardsByFilms(filteringProps));
+  }, [filteringProps.films.value]);
+
+  useEffect(() => {
+    setFilmsObjects(films);
+  }, [films]);
 
   useEffect(() => {
     dispatch(fetchFilms());
@@ -60,24 +77,22 @@ export default function FilmsFilter() {
           input={<OutlinedInput />}
           renderValue={(selected) => {
             if (selected.length === 0) {
-              return <span>Select movies</span>;
+              return 'Select movies';
             }
 
             return selected.join(', ');
           }}
           MenuProps={MenuProps}
-          inputProps={{ 'aria-label': 'Without label' }}
-        >
+          inputProps={{ 'aria-label': 'Without label' }}>
           <MenuItem disabled value="" className={style['films-filter__select-item']}>
             <em>Select movies</em>
           </MenuItem>
-          {films.map((film) => (
+          {filmsObjects.map((film) => (
             <MenuItem
               className={style['films-filter__select-item']}
               key={film.title}
               value={film.title}
-              style={getStyles(film.title, selectedFilms, theme)}
-            >
+              style={getStyles(film.title, selectedFilms, theme)}>
               {film.title.length < 20 ? film.title : `${film.title.slice(0, 15)}...`}
             </MenuItem>
           ))}

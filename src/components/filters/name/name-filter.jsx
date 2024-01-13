@@ -16,7 +16,7 @@ export default function NameFilter() {
 
   const debouncedUpdateSearch = debounce((value) => {
     dispatch(updateSearch(value));
-  }, 1000);
+  }, 100);
 
   const handleChange = (event) => {
     setInput(event.target.value);
