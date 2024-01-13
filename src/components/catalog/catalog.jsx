@@ -33,7 +33,7 @@ export default function Catalog() {
         {status === 'pending' ? (
           <p>loading...</p>
         ) : (
-          filteredCards.slice(Number(`${currentPage - 1}0`), currentPage * 10 - 1).map((card) => {
+          filteredCards.slice(Number(`${currentPage - 1}0`), currentPage * 10).map((card) => {
             return (
               <CharacterCard
                 key={card.name}

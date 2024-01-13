@@ -57,6 +57,8 @@ export const filterFunctions = {
 
     return lowerCardValue !== 'male' && lowerCardValue !== 'female';
   },
+  minMass: (cardValue, current) => cardValue >= current,
+  maxMass: (cardValue, current) => cardValue <= current,
 };
 
 const filterCards = (defaultCards, filteredValues) => {
@@ -66,7 +68,9 @@ const filterCards = (defaultCards, filteredValues) => {
     if (filteredValues[key]) {
       filteredCards = [
         ...filteredCards.filter((item) => {
-          if (filterFunctions[key](item[key], filteredValues[key].value)) return true;
+          if (key === 'minMass' || key === 'maxMass') {
+            if (filterFunctions[key](item.mass, filteredValues[key].value)) return true;
+          } else if (filterFunctions[key](item[key], filteredValues[key].value)) return true;
 
           return false;
         }),
@@ -91,6 +95,13 @@ const cardsSlice = createSlice({
       const { cards } = state.default;
       const filteredValues = payload;
 
+      state.filtered.filteredCards = filterCards(cards, filteredValues);
+    },
+    filterCardsByMass(state, { payload }) {
+      const { cards } = state.default;
+      const filteredValues = payload;
+
+      console.log(payload);
       state.filtered.filteredCards = filterCards(cards, filteredValues);
     },
     updatePages(state) {

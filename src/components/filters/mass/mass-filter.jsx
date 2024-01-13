@@ -1,22 +1,22 @@
 import { TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import style from './mass-filter.module.scss';
 import filtersStyle from '../filters.module.scss';
 import { filtersActions } from '../../../redux/slices/filtersSlice';
+import { cardsActions } from '../../../redux/slices/cardsSlice';
+import debounce from '../../../utils/debounce';
 
 export default function MassFilter() {
   const dispatch = useDispatch();
   const { updateMinMass, updateMaxMass } = filtersActions;
-  const { MIN_MASS, MAX_MASS, minMass, maxMass } = useSelector((state) => state.filters);
+  const { filterCardsByMass, filter } = cardsActions;
+  const { MIN_MASS, MAX_MASS } = useSelector((state) => state.filters);
+  const { filteringProps } = useSelector((state) => state.filters);
+  const [minMassValue, setMinMassValue] = useState(MIN_MASS || 0);
+  const [maxMassValue, setMaxMassValue] = useState(MAX_MASS || 0);
 
-  const handleChangeMin = (event) => dispatch(updateMinMass(event.target.value));
-  const handleChangeMax = (event) => dispatch(updateMaxMass(event.target.value));
-
-  const handleBlurMin = (event) => {
-    const {
-      target: { value },
-    } = event;
-
+  const debouncedUpdateMinMass = debounce((value) => {
     let editedValue = Math.floor(value);
 
     if (value >= MIN_MASS) {
@@ -25,14 +25,11 @@ export default function MassFilter() {
       editedValue = MIN_MASS;
     }
 
+    setMinMassValue(editedValue);
     dispatch(updateMinMass(editedValue));
-  };
+  }, 1500);
 
-  const handleBlurMax = (event) => {
-    const {
-      target: { value },
-    } = event;
-
+  const debouncedUpdateMaxMass = debounce((value) => {
     let editedValue = Math.floor(value);
 
     if (value <= MAX_MASS) {
@@ -41,8 +38,23 @@ export default function MassFilter() {
       editedValue = MAX_MASS;
     }
 
+    setMaxMassValue(editedValue);
     dispatch(updateMaxMass(editedValue));
+  }, 1500);
+
+  const handleChangeMin = (event) => {
+    setMinMassValue(event.target.value);
+    debouncedUpdateMinMass(event.target.value);
   };
+
+  const handleChangeMax = (event) => {
+    setMaxMassValue(event.target.value);
+    debouncedUpdateMaxMass(event.target.value);
+  };
+
+  useEffect(() => {
+    dispatch(filterCardsByMass(filteringProps));
+  }, [filteringProps.minMass, filteringProps.maxMass]);
 
   return (
     <div className={`${style['mass-filter']} ${filtersStyle.filters__item__wrapper}`}>
@@ -56,8 +68,7 @@ export default function MassFilter() {
             shrink: true,
           }}
           onChange={handleChangeMin}
-          onBlur={handleBlurMin}
-          value={minMass}
+          value={minMassValue}
         />
         <TextField
           id="outlined-number"
@@ -67,8 +78,7 @@ export default function MassFilter() {
             shrink: true,
           }}
           onChange={handleChangeMax}
-          onBlur={handleBlurMax}
-          value={maxMass}
+          value={maxMassValue}
         />
       </div>
     </div>
