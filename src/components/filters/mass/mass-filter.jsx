@@ -10,7 +10,7 @@ import debounce from '../../../utils/debounce';
 export default function MassFilter() {
   const dispatch = useDispatch();
   const { updateMinMass, updateMaxMass } = filtersActions;
-  const { filterCardsByMass, filter } = cardsActions;
+  const { filterCardsByMass } = cardsActions;
   const { MIN_MASS, MAX_MASS } = useSelector((state) => state.filters);
   const { filteringProps } = useSelector((state) => state.filters);
   const [minMassValue, setMinMassValue] = useState(MIN_MASS || 0);
@@ -20,7 +20,7 @@ export default function MassFilter() {
     let editedValue = Math.floor(value);
 
     if (value >= MIN_MASS) {
-      editedValue = editedValue <= MAX_MASS ? editedValue : MAX_MASS;
+      editedValue = editedValue <= maxMassValue ? editedValue : maxMassValue;
     } else {
       editedValue = MIN_MASS;
     }
@@ -33,7 +33,7 @@ export default function MassFilter() {
     let editedValue = Math.floor(value);
 
     if (value <= MAX_MASS) {
-      editedValue = editedValue >= MIN_MASS ? editedValue : MIN_MASS;
+      editedValue = editedValue >= minMassValue ? editedValue : minMassValue;
     } else {
       editedValue = MAX_MASS;
     }
@@ -55,6 +55,11 @@ export default function MassFilter() {
   useEffect(() => {
     dispatch(filterCardsByMass(filteringProps));
   }, [filteringProps.minMass, filteringProps.maxMass]);
+
+  useEffect(() => {
+    if (!filteringProps.minMass.isChanged) setMinMassValue(MIN_MASS);
+    if (!filteringProps.maxMass.isChanged) setMaxMassValue(MAX_MASS);
+  }, [filteringProps.minMass.isChanged, filteringProps.maxMass.isChanged]);
 
   return (
     <div className={`${style['mass-filter']} ${filtersStyle.filters__item__wrapper}`}>

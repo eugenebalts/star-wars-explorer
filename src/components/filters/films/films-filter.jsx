@@ -46,8 +46,6 @@ export default function FilmsFilter() {
       .filter((film) => selectedFilmsNames.some((selectedFilmsName) => selectedFilmsName === film.title))
       .map((film) => film.url);
 
-    console.log(selectedFilmsUrl);
-
     setSelectedFilms(selectedFilmsNames);
     dispatch(updateFilms([...selectedFilmsUrl]));
   };
@@ -55,6 +53,10 @@ export default function FilmsFilter() {
   useEffect(() => {
     dispatch(filterCardsByFilms(filteringProps));
   }, [filteringProps.films.value]);
+
+  useEffect(() => {
+    if (!filteringProps.films.isChanged) setSelectedFilms([]);
+  }, [filteringProps.films.isChanged]);
 
   useEffect(() => {
     setFilmsObjects(films);

@@ -4,31 +4,29 @@ const initialState = {
   filteringProps: {
     name: {
       value: '',
+      isChanged: false,
     },
     films: {
       value: [],
+      isChanged: false,
     },
     gender: {
       value: '',
+      isChanged: false,
     },
     minMass: {
       value: 0,
+      isChanged: false,
     },
     maxMass: {
       value: 200,
+      isChanged: false,
     },
-  },
-  mass: {
-    value: '',
-    isChanged: false,
   },
   MIN_MASS: 0,
   MAX_MASS: 200,
   page: 1,
-  isChanged: false,
 };
-
-const { search, mass, minMass, maxMass, gender, films } = initialState; // default
 
 const filtersSlice = createSlice({
   name: 'filters',
@@ -36,22 +34,23 @@ const filtersSlice = createSlice({
   reducers: {
     updateSearch(state, { payload }) {
       state.filteringProps.name.value = payload;
-    },
-    updateMass(state, { payload }) {
-      state.mass.value = payload;
-      state.mass.isChanged = payload.toLowerCase() !== mass.value.toLowerCase();
+      state.filteringProps.name.isChanged = !!payload.length;
     },
     updateGender(state, { payload }) {
       state.filteringProps.gender.value = payload;
+      state.filteringProps.gender.isChanged = !!payload.length;
     },
     updateFilms(state, { payload }) {
       state.filteringProps.films.value = [...payload];
+      state.filteringProps.films.isChanged = !!state.filteringProps.films.value.length;
     },
     updateMinMass(state, { payload }) {
       state.filteringProps.minMass.value = payload;
+      state.filteringProps.minMass.isChanged = payload !== state.MIN_MASS;
     },
     updateMaxMass(state, { payload }) {
       state.filteringProps.maxMass.value = payload;
+      state.filteringProps.maxMass.isChanged = payload !== state.MAX_MASS;
     },
     updatePage(state, { payload }) {
       if (state.page !== payload) {
@@ -59,38 +58,15 @@ const filtersSlice = createSlice({
       }
     },
     resetFilters(state) {
-      state.search = {
-        value: search.value,
-        isChanged: false,
-      };
+      state.filteringProps.name.value = '';
+      state.filteringProps.gender.value = '';
+      state.filteringProps.films.value = [];
+      state.filteringProps.minMass.value = state.MIN_MASS;
+      state.filteringProps.maxMass.value = state.MAX_MASS;
 
-      state.mass = {
-        value: mass.value,
-        isChanged: false,
-      };
-
-      state.minMass = {
-        value: minMass.value,
-        isChanged: false,
-      };
-
-      state.maxMass = {
-        value: maxMass.value,
-        isChanged: false,
-      };
-
-      state.gender = {
-        value: gender.value,
-        isChanged: false,
-      };
-
-      state.films = {
-        value: films.value,
-        isChanged: false,
-      };
-
-      state.page = 1;
-      state.isChanged = false;
+      Object.keys(state.filteringProps).forEach((prop) => {
+        state.filteringProps[prop].isChanged = false;
+      });
     },
   },
 });

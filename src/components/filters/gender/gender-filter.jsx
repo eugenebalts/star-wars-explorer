@@ -1,6 +1,6 @@
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import style from './gender-filter.module.scss';
 import filtersStyle from '../filters.module.scss';
 import { filtersActions } from '../../../redux/slices/filtersSlice';
@@ -11,10 +11,8 @@ export default function GenderFilter() {
   const { updateGender } = filtersActions;
   const { filterCardsByGender } = cardsActions;
   const { filteringProps } = useSelector((state) => state.filters);
-  const [checkedItem, setCheckedItem] = useState('');
 
   const handleChange = (event) => {
-    setCheckedItem(event.target.value);
     dispatch(updateGender(event.target.value));
   };
 
@@ -31,28 +29,28 @@ export default function GenderFilter() {
           control={<Radio className={style['gender-filter__input']} />}
           label="All"
           onChange={handleChange}
-          checked={checkedItem === ''}
+          checked={filteringProps.gender.value === ''}
         />
         <FormControlLabel
           value="male"
           control={<Radio className={style['gender-filter__input']} />}
           label="Male"
           onChange={handleChange}
-          checked={checkedItem === 'male'}
+          checked={filteringProps.gender.value === 'male'}
         />
         <FormControlLabel
           value="female"
           control={<Radio className={style['gender-filter__input']} />}
           label="Female"
           onChange={handleChange}
-          checked={checkedItem === 'female'}
+          checked={filteringProps.gender.value === 'female'}
         />
         <FormControlLabel
           value="other"
           control={<Radio className={style['gender-filter__input']} />}
           label="Other"
           onChange={handleChange}
-          checked={checkedItem === 'other'}
+          checked={filteringProps.gender.value === 'other'}
         />
       </RadioGroup>
     </div>

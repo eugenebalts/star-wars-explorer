@@ -12,18 +12,12 @@ export default function NameFilter() {
   const { filteringProps } = useSelector((state) => state.filters);
   const { updateSearch } = filtersActions;
   const { filterCardsBySearch } = cardsActions;
-  const [input, setInput] = useState('');
-
-  const debouncedUpdateSearch = debounce((value) => {
-    dispatch(updateSearch(value));
-  }, 100);
 
   const handleChange = (event) => {
-    setInput(event.target.value);
-
-    debouncedUpdateSearch(event.target.value);
+    dispatch(updateSearch(event.target.value));
   };
 
+  // перенести
   useEffect(() => {
     dispatch(filterCardsBySearch(filteringProps));
   }, [filteringProps.name.value]);
@@ -37,7 +31,7 @@ export default function NameFilter() {
         variant="outlined"
         onChange={handleChange}
         color="primary"
-        value={input}
+        value={filteringProps.name.value}
       />
     </div>
   );
