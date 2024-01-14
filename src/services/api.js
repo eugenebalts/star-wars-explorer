@@ -53,9 +53,9 @@ class Api {
     return this.GET_REQUEST(path);
   }
 
-  async getCharacter(id, query) {
+  async getCharacter(id) {
     const path = `${this.PATH_TO_PEOPLE}/${id}`;
-    return this.GET_REQUEST(path, query);
+    return this.GET_REQUEST(path);
   }
 }
 

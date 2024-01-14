@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import style from './breadcrumbs.module.scss';
 
 export default function CustomBreadcrumbs({ links, currentPage }) {
-  const handleClick = () => {};
   return (
     <div className={style.breadcrumbs}>
       {links.map((item) => {

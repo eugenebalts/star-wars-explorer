@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../services/api';
 
-export const fetchCards = createAsyncThunk('cards/fetchCards', async (query, { dispatch, getState }) => {
+export const fetchCards = createAsyncThunk('cards/fetchCards', async (query) => {
   let currentPage = 1;
   let cards = [];
   let hasMorePages = true;
@@ -14,7 +14,7 @@ export const fetchCards = createAsyncThunk('cards/fetchCards', async (query, { d
 
       cards = [...cards, ...results];
 
-      if (currentPage === 1) hasMorePages = false; // BLOCK ON 20 CARDS --TEMPORARY
+      // if (currentPage === 5) hasMorePages = false; // BLOCKED ON 50 CARDS --TEMPORARY
 
       if (next) {
         currentPage += 1;
