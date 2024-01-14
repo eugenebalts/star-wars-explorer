@@ -1,4 +1,5 @@
 .catalog-list {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
@@ -16,8 +17,7 @@
   }
 
   &__loading {
-    grid-column: 2;
-    grid-row: 2;
+    position: absolute;
   }
 
   &__item {

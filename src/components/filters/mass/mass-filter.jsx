@@ -4,13 +4,11 @@ import { useEffect, useState } from 'react';
 import style from './mass-filter.module.scss';
 import filtersStyle from '../filters.module.scss';
 import { filtersActions } from '../../../redux/slices/filtersSlice';
-import { cardsActions } from '../../../redux/slices/cardsSlice';
 import debounce from '../../../utils/debounce';
 
 export default function MassFilter() {
   const dispatch = useDispatch();
   const { updateMinMass, updateMaxMass } = filtersActions;
-  const { filterCardsByMass } = cardsActions;
   const { MIN_MASS, MAX_MASS } = useSelector((state) => state.filters);
   const { filteringProps } = useSelector((state) => state.filters);
   const [minMassValue, setMinMassValue] = useState(MIN_MASS || 0);

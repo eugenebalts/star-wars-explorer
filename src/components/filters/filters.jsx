@@ -1,7 +1,3 @@
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import { AccordionActions, AccordionDetails, Typography } from '@mui/material';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import style from './filters.module.scss';
 import FilterActions from './actions/actions';
 import FilmsFilter from './films/films-filter';

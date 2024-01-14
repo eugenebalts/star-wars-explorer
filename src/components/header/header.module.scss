@@ -8,29 +8,4 @@
     aspect-ratio: 1;
     background: url('../../assets/header-logo.png') center/100% no-repeat;
   }
-
-  &__background {
-    top: 0;
-    position: absolute;
-    width: 100px;
-    animation: planetAnimation 200s infinite reverse linear;
-  }
-}
-
-@keyframes planetAnimation {
-  0% {
-    transform: translateX(300px) translateY(0) rotate(0deg);
-  }
-  25% {
-    transform: translateX(0) translateY(100px) rotate(90deg);
-  }
-  50% {
-    transform: translateX(-300px) translateY(0) rotate(180deg);
-  }
-  75% {
-    transform: translateX(0) translateY(-100px) rotate(270deg);
-  }
-  100% {
-    transform: translateX(300px) translateY(0) rotate(360deg);
-  }
 }
