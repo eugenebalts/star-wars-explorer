@@ -5,6 +5,7 @@ import { filtersActions } from '../../redux/slices/filtersSlice';
 import style from './catalog.module.scss';
 import CatalogList from './catalog-list/catalog-list';
 import CatalogPagination from './pagination/pagination';
+import { fetchFilms } from '../../redux/slices/filmsSlice';
 
 export default function Catalog() {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ export default function Catalog() {
 
   useEffect(() => {
     dispatch(fetchCards());
+    dispatch(fetchFilms());
   }, []);
 
   useEffect(() => {

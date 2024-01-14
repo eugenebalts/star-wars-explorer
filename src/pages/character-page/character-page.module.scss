@@ -1,0 +1,22 @@
+.character-about {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  line-height: 1.5rem;
+
+  &__introduction {
+    &__image {
+      display: flex;
+      max-width: 200px;
+      margin: 0 20px 20px 0;
+      border: 2px solid #000000;
+      background-color: rgba(255, 255, 255, 0.5);
+      float: left;
+
+      & img {
+        width: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+}

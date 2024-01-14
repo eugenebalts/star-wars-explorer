@@ -24,6 +24,7 @@ export default function CatalogList() {
               height={card.height}
               hair={card.hair_color}
               eye={card.eye_color}
+              url={card.url}
             />
           );
         })

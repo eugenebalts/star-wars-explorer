@@ -12,6 +12,7 @@ export default function CharacterCard({ name, gender, height, hair, eye, url }) 
 
     if (id) navigate(`/people/${id}`);
   };
+
   return (
     <Card sx={{ maxWidth: 300 }} className={style.card} onClick={handleClick}>
       <CardActionArea>

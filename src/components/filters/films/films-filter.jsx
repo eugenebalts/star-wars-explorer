@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import style from './films-filter.module.scss';
 import filtersStyle from '../filters.module.scss';
 import { filtersActions } from '../../../redux/slices/filtersSlice';
-import { fetchFilms } from '../../../redux/slices/filmsSlice';
-import { cardsActions } from '../../../redux/slices/cardsSlice';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 0;
@@ -51,10 +49,6 @@ export default function FilmsFilter() {
   useEffect(() => {
     if (!filteringProps.films.isChanged) setSelectedFilms([]);
   }, [filteringProps.films.isChanged]);
-
-  useEffect(() => {
-    dispatch(fetchFilms());
-  }, []);
 
   return (
     <div className={`${style['films-filter']} ${filtersStyle.filters__item__wrapper}`}>
