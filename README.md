@@ -9,6 +9,7 @@
 - **React Router DOM** <sup>_[docs](https://reactrouter.com/en/6.21.2)_</sup> - DOM bindings for React Router. 
 - **Redux** <sup>_[docs](https://redux.js.org/introduction/getting-started)_</sup> -  A predictable state container for JavaScript apps.
 - **Redux Toolkit** <sup>_[docs](https://redux-toolkit.js.org/introduction/getting-started)_</sup> - A set of tools for Redux.
+- **SCSS** <sup>_[docs](https://sass-lang.com/documentation/)_</sup> - Sass is a stylesheet language that’s compiled to CSS.
 - **Material-UI (MUI)** <sup>_[docs](https://mui.com/material-ui/getting-started/)_</sup> -  A popular React UI framework.
 - **ESLint** <sup>_[docs](https://eslint.org/docs/latest/)_</sup> - A pluggable linting utility for JavaScript and JSX.
 - **Prettier** <sup>_[docs](https://prettier.io/docs/en/)_</sup> - An opinionated code formatter.
