@@ -1,6 +1,6 @@
 # Star Wars Character Explorer
 
-`Star Wars Character Explorer` that allows users to explore Star Wars characters
+`Star Wars Character Explorer` is a web that allows users to explore Star Wars characters.
 
 ## Technology Stack
 
@@ -44,7 +44,15 @@ npm run start
 
 ## Available scripts
 
-#### Webpack (code building)
+#### Development server
+
+- run the project locally
+
+```
+npm run start
+```
+
+#### Code building
 
 - build development version
 
