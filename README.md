@@ -1,70 +1,81 @@
-# Getting Started with Create React App
+# Star Wars Character Explorer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+`Star Wars Character Explorer` that allows users to explore Star Wars characters
 
-## Available Scripts
+## Technology Stack
 
-In the project directory, you can run:
+- **React** <sup>_[docs](https://legacy.reactjs.org/docs/getting-started.html)_</sup> - A JavaScript library for building user interfaces.
+- **React DOM** <sup>_[docs](https://legacy.reactjs.org/docs/react-dom.html)_</sup> - The entry point to the DOM and server renderers for React.
+- **React Router DOM** <sup>_[docs](https://reactrouter.com/en/6.21.2)_</sup> - DOM bindings for React Router. 
+- **Redux** <sup>_[docs](https://redux.js.org/introduction/getting-started)_</sup> -  A predictable state container for JavaScript apps.
+- **Redux Toolkit** <sup>_[docs](https://redux-toolkit.js.org/introduction/getting-started)_</sup> - A set of tools for Redux.
+- **Material-UI (MUI)** <sup>_[docs](https://mui.com/material-ui/getting-started/)_</sup> -  A popular React UI framework.
+- **ESLint** <sup>_[docs](https://eslint.org/docs/latest/)_</sup> - A pluggable linting utility for JavaScript and JSX.
+- **Prettier** <sup>_[docs](https://prettier.io/docs/en/)_</sup> - An opinionated code formatter.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### External Libraries
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- *@reduxjs/toolkit* - Selected for application state management. The Redux Toolkit provides modern templates for working with Redux, making it easier to store repository, write editors, and interact with asynchronous operations.
+- *prop-types* - Used to check the types of component properties during development. This allows you to detect potential errors early and improves code readability.
+- *@mui/material* - Used to create stylish and interactive dashboard interfaces by providing many pre-built components and styles.
 
-### `npm test`
+## Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To get a local copy of the project perform the following actions:
 
-### `npm run build`
+1. Clone the repo
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+git clone https://github.com/eugenebalts/star-wars-explorer.git
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Install npm packages
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+npm install
+```
 
-### `npm run eject`
+3. Run the project locally
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+npm run start
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Available scripts
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### Webpack (code building)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- build development version
 
-## Learn More
+```
+npm run build
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Prettier (code formatting)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- сhecks formatting for all project files
 
-### Code Splitting
+```
+npm run prettier:check
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- auto fixes formatting for all project files
 
-### Analyzing the Bundle Size
+```
+npm run prettier:fix
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+#### ESLint (code linting)
 
-### Making a Progressive Web App
+- checks linting for all project files
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```
+npm run lint:check
+```
 
-### Advanced Configuration
+- auto fixes linting error for all project files
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+npm run lint:fix
+```
