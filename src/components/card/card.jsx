@@ -1,11 +1,21 @@
-import { Card, CardActionArea, CardContent, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import style from './card.module.scss';
+import getIdFromUrl from '../../utils/getIdFromUrl';
+import Image from '../../assets/person.png';
 
-export default function CharacterCard({ name, gender, height, hair, eye }) {
+export default function CharacterCard({ name, gender, height, hair, eye, url }) {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    const id = getIdFromUrl(url, 'people')[0];
+
+    if (id) navigate(`/people/${id}`);
+  };
   return (
-    <Card sx={{ maxWidth: 300 }} className={style.card}>
+    <Card sx={{ maxWidth: 300 }} className={style.card} onClick={handleClick}>
       <CardActionArea>
+        <CardMedia component="img" height="200" image={Image} alt="character" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {name}
@@ -26,4 +36,5 @@ CharacterCard.propTypes = {
   height: PropTypes.string.isRequired,
   hair: PropTypes.string.isRequired,
   eye: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 };
