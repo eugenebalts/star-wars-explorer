@@ -5,6 +5,14 @@ import api from '../../services/api';
 import { useEffect, useState } from 'react';
 import Image from '../../assets/person.png';
 import getIdFromUrl from '../../utils/getIdFromUrl';
+import CustomBreadcrumbs from '../../components/breadcrumbs/breadcrumbs';
+
+const breadcrumbLink = [
+  {
+    pageName: 'Catalog',
+    link: '/',
+  },
+];
 
 export default function CharacterPage() {
   const { id } = useParams();
@@ -93,6 +101,7 @@ export default function CharacterPage() {
 
   return (
     <div className={`${style['character-page']} ${pageStyle.page}`}>
+      <CustomBreadcrumbs links={breadcrumbLink} currentPage={cardData?.name ?? 'Character'} />
       <section className={`${pageStyle.section}`}>
         <div className={style['character-about']}>
           <h2 className={style['character-about__title']}>{cardData?.name || 'unnamed'}</h2>
