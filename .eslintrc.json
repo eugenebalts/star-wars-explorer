@@ -49,6 +49,7 @@
     "camelcase": "off",
     "no-unused-vars": "warn",
     "no-await-in-loop": "warn",
-    "import/order": "off"
+    "import/order": "off",
+    "lines-between-class-members": "off"
   }
 }
