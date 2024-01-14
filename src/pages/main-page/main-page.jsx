@@ -1,5 +1,3 @@
-import Container from '../../components/container/container';
-import DefaultLayout from '../../layouts/default/default';
 import Filters from '../../components/filters/filters';
 import style from './main-page.module.scss';
 import pageStyle from '../page.module.scss';
@@ -23,15 +21,11 @@ export default function MainPage() {
   }, []);
 
   return (
-    <DefaultLayout>
-      <Container>
-        <div className={`${style['main-page']} ${pageStyle.page}`}>
-          <section className={`${pageStyle.section} ${style.section} ${style.section_catalog}`}>
-            {isTablet ? <MobileFilters /> : <Filters />}
-            <Catalog />
-          </section>
-        </div>
-      </Container>
-    </DefaultLayout>
+    <div className={`${style['main-page']} ${pageStyle.page}`}>
+      <section className={`${pageStyle.section} ${style.section} ${style.section_catalog}`}>
+        {isTablet ? <MobileFilters /> : <Filters />}
+        <Catalog />
+      </section>
+    </div>
   );
 }

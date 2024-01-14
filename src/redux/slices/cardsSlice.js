@@ -14,7 +14,7 @@ export const fetchCards = createAsyncThunk('cards/fetchCards', async (query, { d
 
       cards = [...cards, ...results];
 
-      if (currentPage === 3) hasMorePages = false; // BLOCK ON 20 CARDS --TEMPORARY
+      if (currentPage === 1) hasMorePages = false; // BLOCK ON 20 CARDS --TEMPORARY
 
       if (next) {
         currentPage += 1;
