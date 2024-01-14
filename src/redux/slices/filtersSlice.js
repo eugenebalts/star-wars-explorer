@@ -26,6 +26,7 @@ const initialState = {
   MIN_MASS: 0,
   MAX_MASS: 200,
   page: 1,
+  isChanged: false,
 };
 
 const filtersSlice = createSlice({
@@ -56,6 +57,33 @@ const filtersSlice = createSlice({
       if (state.page !== payload) {
         state.page = payload;
       }
+    },
+    updateMASS(state, { payload }) {
+      const cards = payload;
+
+      if (cards.length) {
+        const sortedMass = cards
+          .map((card) => {
+            if (card.mass === 'unknown') {
+              return 0;
+            }
+
+            return Number(card.mass.replace(',', '.'));
+          })
+          .sort((a, b) => a - b);
+
+        state.MIN_MASS = sortedMass[0];
+        state.MAX_MASS = sortedMass[sortedMass.length - 1];
+      }
+    },
+    updateIsChanged(state, { payload }) {
+      const filteringProps = payload;
+
+      state.isChanged = [
+        ...Object.keys(filteringProps).map((key) => {
+          return filteringProps[key].isChanged;
+        }),
+      ].every((prop) => !prop);
     },
     resetFilters(state) {
       state.filteringProps.name.value = '';

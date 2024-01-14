@@ -1,24 +1,17 @@
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import style from './gender-filter.module.scss';
 import filtersStyle from '../filters.module.scss';
 import { filtersActions } from '../../../redux/slices/filtersSlice';
-import { cardsActions } from '../../../redux/slices/cardsSlice';
 
 export default function GenderFilter() {
   const dispatch = useDispatch();
   const { updateGender } = filtersActions;
-  const { filterCardsByGender } = cardsActions;
   const { filteringProps } = useSelector((state) => state.filters);
 
   const handleChange = (event) => {
     dispatch(updateGender(event.target.value));
   };
-
-  useEffect(() => {
-    dispatch(filterCardsByGender(filteringProps));
-  }, [filteringProps.gender.value]);
 
   return (
     <div className={`${filtersStyle.filters__item__wrapper} ${style['gender-filter']}`}>

@@ -1,0 +1,25 @@
+.catalog-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: stretch;
+  gap: 20px;
+  place-items: center;
+  flex-grow: 1;
+
+  @media (width < 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (width < 450px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  &__loading {
+    grid-column: 2;
+  }
+
+  &__item {
+    display: none;
+    max-height: 100%;
+  }
+}

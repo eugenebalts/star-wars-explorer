@@ -14,7 +14,7 @@ export const fetchCards = createAsyncThunk('cards/fetchCards', async (query, { d
 
       cards = [...cards, ...results];
 
-      hasMorePages = false; // BLOCK ON 10 CARDS --TEMPORARY
+      if (currentPage === 3) hasMorePages = false; // BLOCK ON 20 CARDS --TEMPORARY
 
       if (next) {
         currentPage += 1;
@@ -35,17 +35,17 @@ const initialState = {
     cardsCount: 0,
     status: null,
     error: null,
-    pages: 1,
   },
   filtered: {
     filteredCards: [],
     filteredCardsCount: 0,
     pages: 1,
+    currentPage: 1,
   },
 };
 
 export const filterFunctions = {
-  name: (cardValue, current) => cardValue.toLowerCase().startsWith(current.toLowerCase().trim()),
+  name: (cardValue, current) => cardValue.toLowerCase().trim().startsWith(current.toLowerCase().trim()),
   gender: (cardValue, current) => {
     const lowerCardValue = cardValue.toLowerCase();
     const lowerCurrentValue = current.toLowerCase();
@@ -57,8 +57,16 @@ export const filterFunctions = {
 
     return lowerCardValue !== 'male' && lowerCardValue !== 'female';
   },
-  minMass: (cardValue, current) => cardValue >= current,
-  maxMass: (cardValue, current) => cardValue <= current,
+  minMass: (cardValue, current) => {
+    if (cardValue === 'unknown') return true;
+
+    return cardValue.replace(',', '.') >= current;
+  },
+  maxMass: (cardValue, current) => {
+    if (cardValue === 'unknown') return true;
+
+    return cardValue.replace(',', '.') <= current;
+  },
   films: (cardValue, current) => {
     return [
       ...current.map((selectedFilm) => {
@@ -96,35 +104,17 @@ const cardsSlice = createSlice({
   name: 'cards',
   initialState,
   reducers: {
-    filterCardsByGender(state, { payload }) {
+    filterCards(state, { payload }) {
       const { cards } = state.default;
       const filteredValues = payload;
 
+      state.filtered.currentPage = 1;
       state.filtered.filteredCards = filterCards(cards, filteredValues);
-    },
-    filterCardsBySearch(state, { payload }) {
-      const { cards } = state.default;
-      const filteredValues = payload;
-
-      state.filtered.filteredCards = filterCards(cards, filteredValues);
-    },
-    filterCardsByMass(state, { payload }) {
-      const { cards } = state.default;
-      const filteredValues = payload;
-
-      state.filtered.filteredCards = filterCards(cards, filteredValues);
-    },
-    filterCardsByFilms(state, { payload }) {
-      const { cards } = state.default;
-      const filteredValues = payload;
-
-      state.filtered.filteredCards = filterCards(cards, filteredValues);
-    },
-    updatePages(state) {
+      state.filtered.filteredCardsCount = state.filtered.filteredCards.length;
       state.filtered.pages = Math.ceil(state.filtered.filteredCards.length / 10);
     },
-    setFilteredCards(state, { payload }) {
-      state.filtered.filteredCards = [...payload];
+    updateCurrentPage(state, { payload }) {
+      state.filtered.currentPage = payload;
     },
   },
   extraReducers: (builder) => {
@@ -134,10 +124,9 @@ const cardsSlice = createSlice({
         state.default.error = null;
         state.default.cards = [...payload];
         state.default.cardsCount = payload.length;
-        state.default.pages = Math.ceil(payload.length / 10);
         state.filtered.filteredCards = [...payload];
         state.filtered.filteredCardsCount = payload.length;
-        state.filtered.pages = state.default.pages;
+        state.filtered.pages = Math.ceil(state.filtered.filteredCards.length / 10);
       })
       .addCase(fetchCards.pending, (state) => {
         state.default.status = 'pending';
@@ -147,7 +136,6 @@ const cardsSlice = createSlice({
         state.default.status = 'rejected';
         state.default.error = payload;
         state.default.cards = [];
-        state.default.pages = 1;
       });
   },
 });

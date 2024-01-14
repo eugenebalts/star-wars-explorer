@@ -1,52 +1,37 @@
-import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Pagination } from '@mui/material';
-import { fetchCards } from '../../redux/slices/cardsSlice';
-import style from './catalog.module.scss';
+import { useEffect } from 'react';
+import { cardsActions, fetchCards } from '../../redux/slices/cardsSlice';
 import { filtersActions } from '../../redux/slices/filtersSlice';
-import CharacterCard from '../card/card';
+import style from './catalog.module.scss';
+import CatalogList from './catalog-list/catalog-list';
+import CatalogPagination from './pagination/pagination';
 
 export default function Catalog() {
   const dispatch = useDispatch();
-  const { status } = useSelector((state) => state.cards.default);
-  const { filteredCards, filteredCardsCount, pages } = useSelector((state) => state.cards.filtered);
-  const [currentPage, setCurrentPage] = useState(1);
-  const { updatePage } = filtersActions;
+  const { filterCards } = cardsActions;
+  const { updateMASS, updateIsChanged } = filtersActions;
+  const { filteredCardsCount } = useSelector((state) => state.cards.filtered);
+  const { cards } = useSelector((state) => state.cards.default);
+  const { filteringProps } = useSelector((state) => state.filters);
 
   useEffect(() => {
     dispatch(fetchCards());
   }, []);
 
-  const handlePaginationChange = (event, value) => {
-    setCurrentPage(value);
+  useEffect(() => {
+    dispatch(filterCards(filteringProps));
+    dispatch(updateIsChanged(filteringProps));
+  }, [cards, filteringProps]);
 
-    dispatch(updatePage(value));
-  };
+  useEffect(() => {
+    dispatch(updateMASS(cards));
+  }, [cards]);
 
   return (
     <div className={style.catalog}>
-      <h3>Character cards: {filteredCardsCount}</h3>
-      <div className={style.catalog__pagination}>
-        <Pagination count={pages} color="primary" onChange={handlePaginationChange} />
-      </div>
-      <div className={style.catalog__content}>
-        {status === 'pending' ? (
-          <p>loading...</p>
-        ) : (
-          filteredCards.slice(Number(`${currentPage - 1}0`), currentPage * 10).map((card) => {
-            return (
-              <CharacterCard
-                key={card.name}
-                name={card.name}
-                gender={card.gender}
-                height={card.height}
-                hair={card.hair_color}
-                eye={card.eye_color}
-              />
-            );
-          })
-        )}
-      </div>
+      <h3 className={style.catalog__title}>Character cards: {filteredCardsCount}</h3>
+      <CatalogPagination />
+      <CatalogList />
     </div>
   );
 }

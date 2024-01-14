@@ -28,12 +28,10 @@ function getStyles(film, films, theme) {
 export default function FilmsFilter() {
   const dispatch = useDispatch();
   const { updateFilms } = filtersActions;
-  const { filterCardsByFilms } = cardsActions;
   const { films } = useSelector((state) => state.films);
   const { filteringProps } = useSelector((state) => state.filters);
   const theme = useTheme();
   const [selectedFilms, setSelectedFilms] = useState([]);
-  const [filmsObjects, setFilmsObjects] = useState([]);
 
   const handleChange = (event) => {
     const {
@@ -42,7 +40,7 @@ export default function FilmsFilter() {
 
     const selectedFilmsNames = typeof value === 'string' ? value.split(',') : value;
 
-    const selectedFilmsUrl = filmsObjects
+    const selectedFilmsUrl = films
       .filter((film) => selectedFilmsNames.some((selectedFilmsName) => selectedFilmsName === film.title))
       .map((film) => film.url);
 
@@ -51,16 +49,8 @@ export default function FilmsFilter() {
   };
 
   useEffect(() => {
-    dispatch(filterCardsByFilms(filteringProps));
-  }, [filteringProps.films.value]);
-
-  useEffect(() => {
     if (!filteringProps.films.isChanged) setSelectedFilms([]);
   }, [filteringProps.films.isChanged]);
-
-  useEffect(() => {
-    setFilmsObjects(films);
-  }, [films]);
 
   useEffect(() => {
     dispatch(fetchFilms());
@@ -89,7 +79,7 @@ export default function FilmsFilter() {
           <MenuItem disabled value="" className={style['films-filter__select-item']}>
             <em>Select movies</em>
           </MenuItem>
-          {filmsObjects.map((film) => (
+          {films.map((film) => (
             <MenuItem
               className={style['films-filter__select-item']}
               key={film.title}
