@@ -1,0 +1,12 @@
+.mass-filter {
+  &__inputs-list {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  & label,
+  & input {
+    font-family: unset !important;
+  }
+}

@@ -1,0 +1,20 @@
+.dialog {
+  & > div:nth-child(3) > div:nth-child(1) {
+    max-width: 400px;
+    height: 80%;
+    padding: 30px;
+    color: #fff !important;
+    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+  }
+
+  &__close-btn {
+    text-align: end;
+  }
+}
+
+.mobile-filters {
+  text-align: center;
+  &__button {
+    font-family: unset !important;
+  }
+}
