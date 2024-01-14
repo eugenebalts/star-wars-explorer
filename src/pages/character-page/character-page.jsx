@@ -1,6 +1,4 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import Container from '../../components/container/container';
-import DefaultLayout from '../../layouts/default/default';
 import style from './character-page.module.scss';
 import pageStyle from '../page.module.scss';
 import api from '../../services/api';
@@ -22,8 +20,7 @@ export default function CharacterPage() {
 
       setCardData(response);
     } catch (err) {
-      console.log(err);
-      // navigate('/not-found-page'); // 404;
+      navigate('/not-found');
     }
   };
 
@@ -85,10 +82,6 @@ export default function CharacterPage() {
   };
 
   useEffect(() => {
-    console.log(films);
-  }, [films]);
-
-  useEffect(() => {
     if (cardData?.species?.length) fetchSpecies();
     if (cardData?.films?.length) fetchFilms();
     if (cardData?.starships?.length) fetchStarships();
@@ -99,38 +92,34 @@ export default function CharacterPage() {
   }, []);
 
   return (
-    <DefaultLayout>
-      <Container>
-        <div className={`${style['character-page']} ${pageStyle.page}`}>
-          <section className={`${pageStyle.section}`}>
-            <div className={style['character-about']}>
-              <h2 className={style['character-about__title']}>{cardData?.name || 'unnamed'}</h2>
-              <div className={style['character-about__introduction']}>
-                <div className={style['character-about__introduction__image']}>
-                  <img src={Image} alt="character" />
-                </div>
-                <div className={style['character-about__introduction__about ']}>
-                  <p className={style['character-about__introduction__summary']}>
-                    {cardData?.name ?? 'This'} is a character from the iconic Star Wars universe. Born{' '}
-                    {cardData?.birth_year ? `in ${cardData.birth_year}` : ' a long time ago'}, standing at a height of{' '}
-                    {cardData?.birth_year ?? 'height of an average person'} in cm and weighing{' '}
-                    {cardData?.mass ?? 'something between an average values of usual people'} kg. Characters skin color
-                    is {cardData?.skin_color ?? 'very beautiful'}, and {cardData?.gender ?? 'unknown'} gender.
-                  </p>
-                </div>
-              </div>
-              <div>
-                <h3>Character shortcut:</h3>
-                <ul>
-                  {species.length ? <li>Species: {species.join(', ')}</li> : ''}
-                  {films.length ? <li>Stared in: {films.join(', ')}</li> : ''}
-                  {starships.length ? <li>Starships: {starships.join(', ')}</li> : ''}
-                </ul>
-              </div>
+    <div className={`${style['character-page']} ${pageStyle.page}`}>
+      <section className={`${pageStyle.section}`}>
+        <div className={style['character-about']}>
+          <h2 className={style['character-about__title']}>{cardData?.name || 'unnamed'}</h2>
+          <div className={style['character-about__introduction']}>
+            <div className={style['character-about__introduction__image']}>
+              <img src={Image} alt="character" />
             </div>
-          </section>
+            <div className={style['character-about__introduction__about ']}>
+              <p className={style['character-about__introduction__summary']}>
+                {cardData?.name ?? 'This'} is a character from the iconic Star Wars universe. Born{' '}
+                {cardData?.birth_year ? `in ${cardData.birth_year}` : ' a long time ago'}, standing at a height of{' '}
+                {cardData?.birth_year ?? 'height of an average person'} in cm and weighing{' '}
+                {cardData?.mass ?? 'something between an average values of usual people'} kg. Characters skin color is{' '}
+                {cardData?.skin_color ?? 'very beautiful'}, and {cardData?.gender ?? 'unknown'} gender.
+              </p>
+            </div>
+          </div>
+          <div>
+            <h3>Character shortcut:</h3>
+            <ul>
+              {species.length ? <li>Species: {species.join(', ')}</li> : ''}
+              {films.length ? <li>Stared in: {films.join(', ')}</li> : ''}
+              {starships.length ? <li>Starships: {starships.join(', ')}</li> : ''}
+            </ul>
+          </div>
         </div>
-      </Container>
-    </DefaultLayout>
+      </section>
+    </div>
   );
 }
