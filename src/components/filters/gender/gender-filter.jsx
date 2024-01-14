@@ -15,7 +15,7 @@ export default function GenderFilter() {
 
   return (
     <div className={`${filtersStyle.filters__item__wrapper} ${style['gender-filter']}`}>
-      <h3>By gender</h3>
+      <h4>By gender</h4>
       <RadioGroup aria-labelledby="demo-form-control-label-placement" name="position">
         <FormControlLabel
           value=""

@@ -1,21 +1,16 @@
 .filters {
-  color: #ffffff !important;
-  background-color: unset !important;
-  box-shadow: unset !important;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 
-  &__dropdown-icon {
-    color: #ffffff !important;
-  }
-
-  &__dropdown {
-    font-family: unset !important;
+  @media (width < 1024px) {
+    align-items: center;
   }
 
   &__list {
     display: flex;
+    flex-direction: column;
     gap: 25px;
-    flex-wrap: wrap;
-    justify-content: center;
   }
 
   &__item {

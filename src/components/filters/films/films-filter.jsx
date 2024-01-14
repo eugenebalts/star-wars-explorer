@@ -58,7 +58,7 @@ export default function FilmsFilter() {
 
   return (
     <div className={`${style['films-filter']} ${filtersStyle.filters__item__wrapper}`}>
-      <h3>By movies</h3>
+      <h4>By movies</h4>
       <FormControl sx={{ m: 1, width: 250, mt: 0 }}>
         <Select
           className={style['films-filter__select']}

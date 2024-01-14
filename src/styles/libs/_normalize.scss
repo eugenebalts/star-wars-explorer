@@ -154,36 +154,21 @@ a {
 // Addresses font sizes and margins set differently in IE6/7
 // Addresses font sizes within 'section' and 'article' in FF4+, Chrome, S5
 
-@if $normalize_headings == true {
-  h1 {
-    font-size: $h1_font_size;
-    margin: $h1_margin;
-  }
-
-  h2 {
-    font-size: $h2_font_size;
-    margin: $h2_margin;
-  }
-
-  h3 {
-    font-size: $h3_font_size;
-    margin: $h3_margin;
-  }
-
-  h4 {
-    font-size: $h4_font_size;
-    margin: $h4_margin;
-  }
-
-  h5 {
-    font-size: $h5_font_size;
-    margin: $h5_margin;
-  }
-
-  h6 {
-    font-size: $h6_font_size;
-    margin: $h6_margin;
-  }
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
 }
 
 // Addresses styling not present in IE 8/9, S5, Chrome

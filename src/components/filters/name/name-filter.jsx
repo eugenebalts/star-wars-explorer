@@ -15,7 +15,7 @@ export default function NameFilter() {
 
   return (
     <div className={`${style['name-filter']} ${filtersStyle.filters__item__wrapper}`}>
-      <h3>By names</h3>
+      <h4>By names</h4>
       <TextField
         id="outlined-basic"
         label="Type name"

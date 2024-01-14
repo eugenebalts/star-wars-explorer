@@ -61,7 +61,7 @@ export default function MassFilter() {
 
   return (
     <div className={`${style['mass-filter']} ${filtersStyle.filters__item__wrapper}`}>
-      <h3>By mass</h3>
+      <h4>By mass</h4>
       <div className={style['mass-filter__inputs-list']}>
         <TextField
           id="outlined-number"
