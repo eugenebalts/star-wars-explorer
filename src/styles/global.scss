@@ -24,6 +24,12 @@ footer {
   flex-shrink: 0;
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 main {
   flex-grow: 1;
 }
