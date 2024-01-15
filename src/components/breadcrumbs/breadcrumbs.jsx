@@ -1,18 +1,19 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import style from './breadcrumbs.module.scss';
+import { Fragment } from 'react';
 
 export default function CustomBreadcrumbs({ links, currentPage }) {
   return (
     <div className={style.breadcrumbs}>
-      {links.map((item) => {
+      {links.map(({ pageName, link }) => {
         return (
-          <>
-            <Link className={style.breadcrumbs__link} to={item.link} key={item.link.pageName}>
-              {item.pageName}
+          <Fragment key={pageName}>
+            <Link className={style.breadcrumbs__link} to={link} key={pageName}>
+              {pageName}
             </Link>
             <p>/</p>
-          </>
+          </Fragment>
         );
       })}
       <p className={style.breadcrumbs__current}>{currentPage}</p>
