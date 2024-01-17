@@ -116,6 +116,16 @@ const cardsSlice = createSlice({
     updateCurrentPage(state, { payload }) {
       state.filtered.currentPage = payload;
     },
+    resetCards(state) {
+      state.default.cards = [];
+      state.default.cardsCount = 0;
+      state.default.status = null;
+      state.default.error = null;
+      state.filtered.filteredCards = [];
+      state.filtered.filteredCardsCount = 0;
+      state.filtered.pages = 1;
+      state.filtered.currentPage = 1;
+    },
   },
   extraReducers: (builder) => {
     builder
