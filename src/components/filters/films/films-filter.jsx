@@ -1,5 +1,4 @@
 import { FormControl, MenuItem, OutlinedInput, Select } from '@mui/material';
-import { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './films-filter.module.scss';
@@ -25,11 +24,10 @@ function getStyles(film, films, theme) {
 
 export default function FilmsFilter() {
   const dispatch = useDispatch();
-  const { updateFilms } = filtersActions;
+  const { updateFilms, updateSelectedFilms } = filtersActions;
   const { films } = useSelector((state) => state.films);
   const { filteringProps } = useSelector((state) => state.filters);
   const theme = useTheme();
-  const [selectedFilms, setSelectedFilms] = useState([]);
 
   const handleChange = (event) => {
     const {
@@ -42,13 +40,9 @@ export default function FilmsFilter() {
       .filter((film) => selectedFilmsNames.some((selectedFilmsName) => selectedFilmsName === film.title))
       .map((film) => film.url);
 
-    setSelectedFilms(selectedFilmsNames);
-    dispatch(updateFilms([...selectedFilmsUrl]));
+    dispatch(updateFilms(selectedFilmsUrl));
+    dispatch(updateSelectedFilms(selectedFilmsNames));
   };
-
-  useEffect(() => {
-    if (!filteringProps.films.isChanged) setSelectedFilms([]);
-  }, [filteringProps.films.isChanged]);
 
   return (
     <div className={`${style['films-filter']} ${filtersStyle.filters__item__wrapper}`}>
@@ -58,7 +52,7 @@ export default function FilmsFilter() {
           className={style['films-filter__select']}
           multiple
           displayEmpty
-          value={selectedFilms}
+          value={filteringProps.films.selected}
           onChange={handleChange}
           input={<OutlinedInput />}
           renderValue={(selected) => {
@@ -78,7 +72,7 @@ export default function FilmsFilter() {
               className={style['films-filter__select-item']}
               key={film.title}
               value={film.title}
-              style={getStyles(film.title, selectedFilms, theme)}>
+              style={getStyles(film.title, filteringProps.films.selected, theme)}>
               {film.title.length < 20 ? film.title : `${film.title.slice(0, 15)}...`}
             </MenuItem>
           ))}
