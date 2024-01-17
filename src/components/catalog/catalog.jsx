@@ -9,13 +9,14 @@ import { fetchFilms } from '../../redux/slices/filmsSlice';
 
 export default function Catalog() {
   const dispatch = useDispatch();
-  const { filterCards } = cardsActions;
+  const { filterCards, resetCards } = cardsActions;
   const { updateMASS, updateIsChanged } = filtersActions;
   const { filteredCardsCount } = useSelector((state) => state.cards.filtered);
   const { cards } = useSelector((state) => state.cards.default);
   const { filteringProps } = useSelector((state) => state.filters);
 
   useEffect(() => {
+    dispatch(resetCards());
     dispatch(fetchCards());
     dispatch(fetchFilms());
   }, []);
