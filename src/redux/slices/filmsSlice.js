@@ -3,9 +3,9 @@ import api from '../../services/api';
 
 export const fetchFilms = createAsyncThunk('cards/fetchFilms', async (query, { rejectWithValue }) => {
   try {
-    const response = await api.getFilms();
+    const { results } = await api.getFilms();
 
-    return response;
+    return results;
   } catch (error) {
     return rejectWithValue(error);
   }
@@ -26,7 +26,7 @@ const filmsSlice = createSlice({
       .addCase(fetchFilms.fulfilled, (state, { payload }) => {
         state.status = 'resolved';
         state.error = null;
-        state.films = [...payload.results];
+        state.films = payload;
       })
       .addCase(fetchFilms.pending, (state) => {
         state.status = 'pending';

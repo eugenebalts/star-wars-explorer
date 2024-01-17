@@ -3,7 +3,7 @@ import api from '../../services/api';
 
 export const fetchCards = createAsyncThunk('cards/fetchCards', async (query) => {
   let currentPage = 1;
-  let cards = [];
+  const cards = [];
   let hasMorePages = true;
 
   while (hasMorePages) {
@@ -12,7 +12,7 @@ export const fetchCards = createAsyncThunk('cards/fetchCards', async (query) => 
 
       const { results, next } = response;
 
-      cards = [...cards, ...results];
+      cards.push(...results);
 
       // if (currentPage === 5) hasMorePages = false; // BLOCKED ON 50 CARDS --TEMPORARY
 
@@ -77,7 +77,7 @@ export const filterFunctions = {
 };
 
 const filterCards = (defaultCards, filteredValues) => {
-  let filteredCards = [...defaultCards];
+  let filteredCards = defaultCards;
 
   Object.keys(filteredValues).forEach((key) => {
     if (filteredValues[key]) {
@@ -122,9 +122,9 @@ const cardsSlice = createSlice({
       .addCase(fetchCards.fulfilled, (state, { payload }) => {
         state.default.status = 'resolved';
         state.default.error = null;
-        state.default.cards = [...payload];
+        state.default.cards = payload;
         state.default.cardsCount = payload.length;
-        state.filtered.filteredCards = [...payload];
+        state.filtered.filteredCards = payload;
         state.filtered.filteredCardsCount = payload.length;
         state.filtered.pages = Math.ceil(state.filtered.filteredCards.length / 10);
       })
