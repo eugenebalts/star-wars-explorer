@@ -121,10 +121,6 @@ const cardsSlice = createSlice({
       state.default.cardsCount = 0;
       state.default.status = null;
       state.default.error = null;
-      state.filtered.filteredCards = [];
-      state.filtered.filteredCardsCount = 0;
-      state.filtered.pages = 1;
-      state.filtered.currentPage = 1;
     },
   },
   extraReducers: (builder) => {
@@ -134,9 +130,6 @@ const cardsSlice = createSlice({
         state.default.error = null;
         state.default.cards = payload;
         state.default.cardsCount = payload.length;
-        state.filtered.filteredCards = payload;
-        state.filtered.filteredCardsCount = payload.length;
-        state.filtered.pages = Math.ceil(state.filtered.filteredCards.length / 10);
       })
       .addCase(fetchCards.pending, (state) => {
         state.default.status = 'pending';
@@ -145,7 +138,6 @@ const cardsSlice = createSlice({
       .addCase(fetchCards.rejected, (state, { payload }) => {
         state.default.status = 'rejected';
         state.default.error = payload;
-        state.default.cards = [];
       });
   },
 });
