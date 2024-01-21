@@ -16,10 +16,13 @@ export default function Catalog() {
   const { filteringProps } = useSelector((state) => state.filters);
 
   useEffect(() => {
-    dispatch(resetCards());
-    dispatch(resetFilters());
     dispatch(fetchCards());
     dispatch(fetchFilms());
+
+    return () => {
+      dispatch(resetCards());
+      dispatch(resetFilters());
+    };
   }, []);
 
   useEffect(() => {
